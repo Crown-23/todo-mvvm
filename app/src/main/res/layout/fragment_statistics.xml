@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.crown.todo.statistics.StatisticsViewModel" />
+    </data>
+
+    <com.crown.todo.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refreshing="@{viewmodel.dataLoading}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="@{viewmodel.dataLoading ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/statistics_no_tasks"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.empty ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/statistics_active_tasks(viewmodel.activeTasksPercent)}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/statistics_completed_tasks(viewmodel.completedTasksPercent)}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}" />
+
+        </LinearLayout>
+
+    </com.crown.todo.ScrollChildSwipeRefreshLayout>
+
+</layout>
